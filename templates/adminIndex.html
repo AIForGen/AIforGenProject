@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Login form with JavaScript Validation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='adminstyle.css') }}" >
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="logo text-center">
+  <h1>Generation Australia </h1>
+</div>
+<div class="wrapper">
+    <div class="signup-wrapper text-center">
+        <a href=""><span class="text-primary">Create Student</span></a>remove
+      </div>
+
+  <div class="inner-warpper text-center">    
+    <table id="studtable">
+        <thead>
+            <tr>
+                <td>Phone</td>
+                <td>Email</td>
+                <td>Name</td>
+                <td>Password</td>
+                <td width="130">Action</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entity in entities %}           
+            <tr>      
+                {%   for key in entity.keys() %}                
+                <td>{{entity[key]}}</td>
+                {% endfor %}
+                <td width="130">
+                    <a href="{{url_for('update', phoneid=entity[key])}}"><span class="text-primary">Edit</span></a>
+                    <a href="{{url_for('delete')}}"><span class="text-primary">Delete</span></a>   
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p></p>
+    <p><h2 class="title">Enter the new Student Deatils to add record into Database.</h2></p>
+    <form action="{{ url_for('create') }}" id="formEdit" method="POST">
+      <div class="input-group">
+        <label class="palceholder" for="userName">User Name:</label>
+        <input class="form-control" name="userName" id="userName" type="text" placeholder="" />
+        <span class="lighting"></span>
+      </div>
+      <div class="input-group">
+        <label class="palceholder" for="userPassword">Password:</label>
+        <input class="form-control" name="userPassword" id="userPassword" type="password" placeholder="" />
+        <span class="lighting"></span>
+      </div>
+      <div class="input-group">
+        <label class="palceholder" for="Email">Email:</label>
+        <input class="form-control" name="email" id="email" type="text" placeholder="" />
+        <span class="lighting"></span>
+      </div>
+      <div class="input-group">
+        <label class="palceholder" for="Phone">Phone:</label>
+        <input class="form-control" name="phone" id="phone" type="text" placeholder="" />
+        <span class="lighting"></span>
+      </div>
+      <button type="submit" id="create">Add Student</button>
+    </form>
+  </div>
+  
+</div>
+
+<!-- you don't need that :)  -->
+
+<!-- partial -->
+  <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js'></script>
+<script src="{{ url_for('static',filename='script.js') }}"></script>
+
+</body>
+</html>
+
+      
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+    </div>
+  </body>
+</html>
